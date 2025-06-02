@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+rasterio
+numpy
+python-multipart
+geopandas
+shapely
+python-dotenv
+pydantic
+pytest
+pytest-asyncio
+celery
+redis
