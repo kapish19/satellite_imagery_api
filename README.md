@@ -2,12 +2,13 @@
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![FastAPI](https://img.shields.io/badge/Framework-FastAPI-green)
-![GDAL](https://img.shields.io/badge/Powered_By-GDAL%2FRasterio-orange)
+![GDAL](https://img.shields.io/badge/Powered_By-GDAL-yellow)
 ![Rasterio](https://img.shields.io/badge/Powered_By-Rasterio-orange)
 
 
 
-A robust API for processing satellite imagery with geospatial capabilities, built with FastAPI and GDAL/Rasterio.
+Satellite Imagery Processing API is a FastAPI-powered solution for geospatial analysis, offering three core functionalities: GeoTIFF metadata extraction, NDVI vegetation index calculation, and change detection between images. It supports both multi-band and separate single-band file processing, with robust error handling and configurable parameters. The API handles key geospatial operations like coordinate system transformations and produces quantitative results with visual outputs, making it ideal for environmental monitoring, agricultural assessment, and urban development tracking.
+
 
 ## Table of Contents
 - [Features](#features)
