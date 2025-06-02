@@ -2,12 +2,14 @@ fastapi
 uvicorn
 rasterio
 numpy
+matplotlib
 python-multipart
+gdal
 geopandas
 shapely
 python-dotenv
 pydantic
 pytest
-pytest-asyncio
-celery
-redis
+httpx 
+requests
+typing
