@@ -139,7 +139,7 @@ Base URL: `http://localhost:8000/api/v1`
 
 ---
 
-#### Reproject Image
+#### 2. Reproject Image
 
 `POST /api/v1/geotiff/reproject`
 
@@ -161,7 +161,7 @@ Base URL: `http://localhost:8000/api/v1`
 
 ---
 
-### 2. NDVI Calculation
+### 3. NDVI Calculation
 
 #### NDVI from Separate Red/NIR Bands
 
@@ -191,7 +191,7 @@ Base URL: `http://localhost:8000/api/v1`
 
 ---
 
-### 3. Change Detection
+### 4. Change Detection
 
 #### Detect Changes Between Two Time Points
 
@@ -217,8 +217,8 @@ Base URL: `http://localhost:8000/api/v1`
   "dimensions": "7821x7951"
 }
 ```
-
-### 4. Health Check
+--- 
+### 5. Health Check
 
 #### Root Route
 
