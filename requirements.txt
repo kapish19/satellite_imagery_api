@@ -4,12 +4,5 @@ rasterio
 numpy
 matplotlib
 python-multipart
-gdal
-geopandas
-shapely
 python-dotenv
-pydantic
-pytest
-httpx 
-requests
-typing
+pydantic_settings
