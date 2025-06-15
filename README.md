@@ -4,11 +4,10 @@
 ![FastAPI](https://img.shields.io/badge/Framework-FastAPI-green)
 ![GDAL](https://img.shields.io/badge/Powered_By-GDAL-yellow)
 ![Rasterio](https://img.shields.io/badge/Powered_By-Rasterio-orange)
-
-
+![React](https://img.shields.io/badge/Frontend-React-blue)
+![Material-UI](https://img.shields.io/badge/UI-Material--UI-blueviolet)
 
 Satellite Imagery Processing API is a FastAPI-powered solution for geospatial analysis, offering three core functionalities: GeoTIFF metadata extraction, NDVI vegetation index calculation, and change detection between images. It supports both multi-band and separate single-band file processing, with robust error handling and configurable parameters. The API handles key geospatial operations like coordinate system transformations and produces quantitative results with visual outputs, making it ideal for environmental monitoring, agricultural assessment, and urban development tracking.
-
 
 ## Table of Contents
 - [Features](#features)
@@ -16,9 +15,8 @@ Satellite Imagery Processing API is a FastAPI-powered solution for geospatial an
 - [Configuration](#configuration)
 - [API Endpoints](#api-endpoints)
 - [Development Setup](#development-setup)
-- [Testing](#testing)
 - [Troubleshooting](#troubleshooting)
-
+- [Frontend Setup](#frontend-setup)
 
 ## Features
 
@@ -39,11 +37,19 @@ Satellite Imagery Processing API is a FastAPI-powered solution for geospatial an
 - **Quantitative Results**: Changed area in pixels and percentage
 - **Binary Output**: Clear change/no-change classification mask
 
+### 4. Frontend Features
+- **Interactive Map**: View and interact with satellite imagery using Leaflet
+- **Modern UI**: Clean and responsive interface built with Material-UI
+- **Real-time Updates**: Dynamic data visualization and processing status
+- **Cross-platform**: Works on all major operating systems
+
 ## Installation
 
 ### Prerequisites
-- Python 3.12
+- Python 3.8 or higher
+- Node.js 14 or higher
 - GDAL system libraries
+- npm or yarn
 
 ### System Setup
 
@@ -72,10 +78,16 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### Docker Setup
+### Frontend Setup
 ```bash
-docker build -t satellite-api .
-docker run -p 8000:8000 satellite-api
+# Navigate to frontend directory
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start development server
+npm start
 ```
 
 ## Configuration
@@ -83,7 +95,6 @@ docker run -p 8000:8000 satellite-api
 Create a `.env` file in the project root:
 
 ```ini
-
 # Directory paths
 TEMP_DIR=app/data/temp
 OUTPUT_DIR=app/data/output
@@ -92,21 +103,16 @@ OUTPUT_DIR=app/data/output
 export GDAL_CONFIG=$(brew --prefix gdal)/bin/gdal-config
 export CPLUS_INCLUDE_PATH=$(brew --prefix gdal)/include
 export C_INCLUDE_PATH=$(brew --prefix gdal)/include
+
+# Frontend configuration
+REACT_APP_API_URL=http://localhost:8000
 ```
-
-## API Endpoints
-
-Based on your provided `main.py` implementation, here's the **"API Endpoints"** section for your documentation, rewritten to match your current actual endpoints and parameter handling:
-
----
 
 ## API Endpoints
 
 Base URL: `http://localhost:8000/api/v1`
 
----
-
-###  1. GeoTIFF Processing
+### 1. GeoTIFF Processing
 
 #### Get Metadata
 
@@ -115,11 +121,9 @@ Base URL: `http://localhost:8000/api/v1`
 **Description**: Extracts metadata from a GeoTIFF file, such as dimensions, CRS, transform, and more.
 
 **Form Input**:
-
 * `file`: Single GeoTIFF file
 
 **Response** (`application/json`):
-
 ```json
 {
   "width": 7821,
@@ -138,21 +142,17 @@ Base URL: `http://localhost:8000/api/v1`
 }
 ```
 
----
-
-#### 2. Reproject Image
+#### Reproject Image
 
 `POST /api/v1/geotiff/reproject`
 
 **Description**: Reprojects a GeoTIFF to a new Coordinate Reference System.
 
 **Form Input**:
-
 * `file`: GeoTIFF file
 * `target_crs`: Target CRS (default is `"EPSG:4326"`)
 
 **Response** (`application/json`):
-
 ```json
 {
   "message": "Reprojection successful",
@@ -160,9 +160,7 @@ Base URL: `http://localhost:8000/api/v1`
 }
 ```
 
----
-
-### 3. NDVI Calculation
+### 2. NDVI Calculation
 
 #### NDVI from Separate Red/NIR Bands
 
@@ -171,12 +169,10 @@ Base URL: `http://localhost:8000/api/v1`
 **Description**: Computes NDVI from two separate single-band GeoTIFFs (e.g., B4 and B5).
 
 **Form Input**:
-
 * `red_file`: Red band image (GeoTIFF)
 * `nir_file`: Near Infrared band image (GeoTIFF)
 
 **Response**:
-
 ```json
 {
   "filename_red": "B04.tif",
@@ -190,9 +186,7 @@ Base URL: `http://localhost:8000/api/v1`
 }
 ```
 
----
-
-### 4. Change Detection
+### 3. Change Detection
 
 #### Detect Changes Between Two Time Points
 
@@ -201,14 +195,12 @@ Base URL: `http://localhost:8000/api/v1`
 **Description**: Compares two images and returns binary change map along with statistics.
 
 **Form Input**:
-
 * `image1`: First GeoTIFF file (older date)
 * `image2`: Second GeoTIFF file (newer date)
 * `band`: Band index to analyze (default: `1`)
 * `threshold`: Sensitivity threshold (range `0.0–1.0`, default: `0.1`)
 
 **Response**:
-
 ```json
 {
   "changed_area_pixels": 12500,
@@ -218,15 +210,14 @@ Base URL: `http://localhost:8000/api/v1`
   "dimensions": "7821x7951"
 }
 ```
---- 
-### 5. Health Check
+
+### 4. Health Check
 
 #### Root Route
 
 `GET /`
 
 **Response**:
-
 ```json
 {
   "message": "Welcome to the Satellite Imagery Processing API",
@@ -235,29 +226,17 @@ Base URL: `http://localhost:8000/api/v1`
 }
 ```
 
-
 ## Development Setup
 
-
-### Running the Development Server
+### Running the Backend Server
 ```bash
 uvicorn app.main:app --reload
 ```
 
-## Testing
-
-Run the complete test suite:
+### Running the Frontend Server
 ```bash
-pytest app/tests/ -v
-```
-
-Test specific modules:
-```bash
-# Test NDVI functionality
-pytest app/tests/test_ndvi.py
-
-# Test change detection
-pytest app/tests/test_change.py
+cd frontend
+npm start
 ```
 
 ## Troubleshooting
@@ -283,5 +262,15 @@ gdalinfo problem_file.tif
 
 # Convert if necessary
 gdal_translate -of GTiff input.img output.tif
+```
+
+#### Frontend Issues
+```bash
+# Clear npm cache
+npm cache clean --force
+
+# Remove node_modules and reinstall
+rm -rf node_modules
+npm install
 ```
 
